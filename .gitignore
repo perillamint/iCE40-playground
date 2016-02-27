@@ -36,3 +36,8 @@ flycheck_*.el
 
 # server auth directory
 /server/
+
+*.asc
+*.bin
+*.blif
+*.rpt
