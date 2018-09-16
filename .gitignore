@@ -41,3 +41,5 @@ flycheck_*.el
 *.bin
 *.blif
 *.rpt
+*.vvp
+*.vcd
