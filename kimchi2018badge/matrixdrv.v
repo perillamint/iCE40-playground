@@ -54,11 +54,6 @@ module matrixdrv (
              else
                begin
                   matclk <= 0;
-                  if (clkcnt == 5'b01011)
-                    begin
-                       address <= address + 1;
-                    end
-
                   if (clkcnt[0])
                     begin
                        latch <= 1;
@@ -81,6 +76,14 @@ module matrixdrv (
                end
           end // else: !if(!rst)
      end // always@ (posedge clk)
+
+   always @ (negedge clk)
+     begin
+        if (clkcnt == 5'b01101)
+          begin
+             address <= address + 1;
+          end
+     end
 
    assign mat_r = r;
    assign mat_g = g;
