@@ -15,7 +15,8 @@ module top (
             output mat_lat,
             output mat_oe
 );
-   wire            clkline;
+   reg             clkline;
+   reg [3:0]       clkcnt;
    wire [2:0]      pixelbitoff;
 
    wire [1:0]      mat_r;
@@ -23,8 +24,15 @@ module top (
    wire [1:0]      mat_b;
    wire [3:0]      mat_row;
 
-   // TODO: divide it to 1/12 -- matdrv module requires 1MHz clock
-   assign clkline = clk;
+   always @ (posedge clk)
+     begin
+        clkcnt <= clkcnt + 1;
+        if (clkcnt == 4'b1100)
+          begin
+             clkline <= ~clkline;
+             clkcnt <= 0;
+          end
+     end
 
    matrixdrv matdrv (clkline, rst, mat_r, mat_g, mat_b, mat_row, mat_clk, mat_lat, mat_oe);
 
