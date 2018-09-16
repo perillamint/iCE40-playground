@@ -32,6 +32,12 @@ bitstream: $(BINS)
 
 simulate: $(VCDS)
 
+flash: $(PROJ).bin
+	iceprog $<
+
+load: $(PROJ).bin
+	iceprog -S $<
+
 $(BLIFS): %.blif: %.v $(MODSRCS)
 	yosys '$(SYNTHFLAGS) -blif $@' $^
 
