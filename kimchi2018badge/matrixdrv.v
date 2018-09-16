@@ -24,9 +24,9 @@ module matrixdrv (
      begin
         if (!rst)
           begin
-             r <= 0;
-             g <= 0;
-             b <= 0;
+             r <= 3;
+             g <= 3;
+             b <= 3;
              clkcnt <= 0;
              address <= 0;
              matclk <= 0;
@@ -35,6 +35,9 @@ module matrixdrv (
           end // if (!rst)
         else
           begin
+             latch <= 0;
+             outputen <= 0;
+
              if (clkcnt < 10)
                begin
                   if (clkcnt[0] == 0)
@@ -55,6 +58,7 @@ module matrixdrv (
                     begin
                        address <= address + 1;
                     end
+
                   if (clkcnt[0])
                     begin
                        latch <= 1;
@@ -67,7 +71,7 @@ module matrixdrv (
                     end
                end // else: !if(clkcnt < 10)
 
-             if (clkcnt <= 14)
+             if (clkcnt <= 12)
                begin
                   clkcnt <= clkcnt + 1;
                end
