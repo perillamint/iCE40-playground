@@ -19,20 +19,21 @@ module testbench;
       $dumpfile("dotmatrix_wave.vcd");
       $dumpvars(0, testbench);
 
+      # 1us T = 1MHz f
       clk <= 0;
       rst <= 0;
-      #250;
+      #500;
       clk <= 1;
-      #250;
+      #500;
       clk <= 0;
       rst <= 1;
-      #250;
+      #500;
       for (i = 0; i < 30; i++)
         begin
            clk <= 1;
-           #250;
+           #500;
            clk <= 0;
-           #250;
+           #500;
         end
    end
 endmodule // testbench

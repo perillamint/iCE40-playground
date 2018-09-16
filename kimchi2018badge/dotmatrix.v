@@ -23,7 +23,7 @@ module top (
    wire [1:0]      mat_b;
    wire [3:0]      mat_row;
 
-   // TODO: PLL
+   // TODO: divide it to 1/12 -- matdrv module requires 1MHz clock
    assign clkline = clk;
 
    matrixdrv matdrv (clkline, rst, mat_r, mat_g, mat_b, mat_row, mat_clk, mat_lat, mat_oe);
