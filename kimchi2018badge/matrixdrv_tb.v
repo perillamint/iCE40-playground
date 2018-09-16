@@ -19,7 +19,7 @@ module testbench;
       $dumpfile("dotmatrix_wave.vcd");
       $dumpvars(0, testbench);
 
-      # 1us T = 1MHz f
+      // 1us T = 1MHz f
       clk <= 0;
       rst <= 0;
       #500;
@@ -28,7 +28,7 @@ module testbench;
       clk <= 0;
       rst <= 1;
       #500;
-      for (i = 0; i < 30; i++)
+      for (i = 0; i < 3000; i++)
         begin
            clk <= 1;
            #500;

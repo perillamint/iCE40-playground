@@ -17,8 +17,9 @@ module matrixdrv (
    reg             matclk;
    reg             latch;
    reg             outputen;
+   wire [4:0]      pixelbitoff;
 
-   assign pixelbitoff = clk / 2;
+   assign pixelbitoff = clkcnt >> 1;
 
    always@(posedge clk)
      begin
