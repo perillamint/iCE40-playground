@@ -22,7 +22,7 @@ module matrixdrv (
 
    always@(posedge clk)
      begin
-        if (rst == 0)
+        if (!rst)
           begin
              r <= 0;
              g <= 0;
@@ -32,31 +32,30 @@ module matrixdrv (
              matclk <= 0;
              latch <= 0;
              outputen <= 0;
-          end
-
-        if (clkcnt < 10)
+          end // if (!rst)
+        else
           begin
-             if (clkcnt[0] == 0)
+             if (clkcnt < 10)
                begin
-                  // Set pixel
-                  matclk <= 0;
+                  if (clkcnt[0] == 0)
+                    begin
+                       // Set pixel
+                       matclk <= 0;
+                    end
+                  else
+                    begin
+                       // Set clock line to high
+                       matclk <= 1;
+                    end
                end
              else
                begin
-                  // Set clock line to high
-                  matclk <= 1;
-               end
-          end
-        else
-          begin
-             if (clkcnt < 14)
-               begin
                   matclk <= 0;
-                  if (clkcnt == 11)
+                  if (clkcnt == 5'b01011)
                     begin
                        address <= address + 1;
                     end
-                  if (clkcnt[0] == 1)
+                  if (clkcnt[0])
                     begin
                        latch <= 1;
                        outputen <= 1;
@@ -66,11 +65,17 @@ module matrixdrv (
                        latch <= 0;
                        outputen <= 0;
                     end
-               end // if (clkcnt < 14)
+               end // else: !if(clkcnt < 10)
+
+             if (clkcnt <= 14)
+               begin
+                  clkcnt <= clkcnt + 1;
+               end
              else
-               clkcnt <= 0;
-          end // else: !if(clkcnt < 10)
-        clkcnt <= clkcnt + 1;
+               begin
+                  clkcnt <= 0;
+               end
+          end // else: !if(!rst)
      end // always@ (posedge clk)
 
    assign mat_r = r;
