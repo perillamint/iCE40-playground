@@ -34,48 +34,48 @@ module matrixdrv (
              latch <= 0;
              outputen <= 0;
           end // if (!rst)
-        else
+
+        if (clkcnt < 10)
           begin
              latch <= 0;
              outputen <= 0;
 
-             if (clkcnt < 10)
+             matclk <= clkcnt[0];
+             //if (!matclk)
+             //  begin
+             //     // Set pixel
+             //  end
+             //else
+             //  begin
+             //     // Set clock line to high
+             //  end
+          end
+        else
+          begin
+             r <= 0;
+             g <= 0;
+             b <= 0;
+             matclk <= 0;
+             if (clkcnt[0])
                begin
-                  if (clkcnt[0] == 0)
-                    begin
-                       // Set pixel
-                       matclk <= 0;
-                    end
-                  else
-                    begin
-                       // Set clock line to high
-                       matclk <= 1;
-                    end
+                  latch <= 1;
+                  outputen <= 1;
                end
              else
                begin
-                  matclk <= 0;
-                  if (clkcnt[0])
-                    begin
-                       latch <= 1;
-                       outputen <= 1;
-                    end
-                  else
-                    begin
-                       latch <= 0;
-                       outputen <= 0;
-                    end
-               end // else: !if(clkcnt < 10)
+                  latch <= 0;
+                  outputen <= 0;
+               end
+          end // else: !if(clkcnt < 10)
 
-             if (clkcnt <= 12)
-               begin
-                  clkcnt <= clkcnt + 1;
-               end
-             else
-               begin
-                  clkcnt <= 0;
-               end
-          end // else: !if(!rst)
+        if (clkcnt <= 12)
+          begin
+             clkcnt <= clkcnt + 1;
+          end
+        else
+          begin
+             clkcnt <= 0;
+          end
      end // always@ (posedge clk)
 
    always @ (negedge clk)

@@ -1,6 +1,6 @@
 PROJ := dotmatrix
 PIN_DEF := hx8kboard.pcf
-DEVICE := hx8k
+DEVICE := hx1k
 
 SIMCOMPILER := iverilog
 SIMULATOR := vvp
