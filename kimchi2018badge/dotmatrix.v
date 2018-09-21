@@ -45,5 +45,4 @@ module top (
 
    assign LED7 = mat_clk;
    assign LED6 = clkline;
-   
 endmodule

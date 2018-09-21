@@ -25,11 +25,10 @@ module matrixdrv (
      begin
         if (!rst)
           begin
-             r <= 3;
-             g <= 3;
-             b <= 3;
+             r <= 0;
+             g <= 0;
+             b <= 0;
              clkcnt <= 0;
-             address <= 0;
              matclk <= 0;
              latch <= 0;
              outputen <= 0;
@@ -41,20 +40,28 @@ module matrixdrv (
              outputen <= 0;
 
              matclk <= clkcnt[0];
-             //if (!matclk)
-             //  begin
-             //     // Set pixel
-             //  end
-             //else
-             //  begin
-             //     // Set clock line to high
-             //  end
+             if (!matclk)
+               begin
+                  if (pixelbitoff >= 0)
+                    begin
+                       r <= 3;
+                       g <= 3;
+                       b <= 3;
+                    end
+                  else
+                    begin
+                       r <= 0;
+                       g <= 0;
+                       b <= 0;
+                    end
+               end
+             else
+               begin
+                  // Set clock line to high
+               end
           end
         else
           begin
-             r <= 0;
-             g <= 0;
-             b <= 0;
              matclk <= 0;
              if (clkcnt[0])
                begin
@@ -80,6 +87,11 @@ module matrixdrv (
 
    always @ (negedge clk)
      begin
+        if (!rst)
+          begin
+             address <= 0;
+          end
+
         if (clkcnt == 5'b01101)
           begin
              address <= address + 1;
