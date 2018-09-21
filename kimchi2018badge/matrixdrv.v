@@ -32,6 +32,7 @@ module matrixdrv (
              matclk <= 0;
              latch <= 0;
              outputen <= 0;
+             address <= 0;
           end // if (!rst)
 
         if (clkcnt < 10)
@@ -45,8 +46,8 @@ module matrixdrv (
                   if (pixelbitoff >= 0)
                     begin
                        r <= 3;
-                       g <= 3;
-                       b <= 3;
+                       g <= 0;
+                       b <= 0;
                     end
                   else
                     begin
@@ -75,6 +76,11 @@ module matrixdrv (
                end
           end // else: !if(clkcnt < 10)
 
+        if (clkcnt == 5'b01100)
+          begin
+             address <= address + 1;
+          end
+
         if (clkcnt <= 12)
           begin
              clkcnt <= clkcnt + 1;
@@ -84,19 +90,6 @@ module matrixdrv (
              clkcnt <= 0;
           end
      end // always@ (posedge clk)
-
-   always @ (negedge clk)
-     begin
-        if (!rst)
-          begin
-             address <= 0;
-          end
-
-        if (clkcnt == 5'b01101)
-          begin
-             address <= address + 1;
-          end
-     end
 
    assign mat_r = r;
    assign mat_g = g;
