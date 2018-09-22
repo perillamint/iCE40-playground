@@ -12,12 +12,14 @@ module matrixdrv (
    reg [1:0]       r;
    reg [1:0]       g;
    reg [1:0]       b;
-   reg [5:0]       clkcnt;
+   reg [7:0]       clkcnt;
    reg [3:0]       address;
    reg             matclk;
    reg             latch;
    reg             outputen;
-   wire [4:0]      pixelbitoff;
+   wire [6:0]      pixelbitoff;
+
+   reg [0:6]       bitcnt;
 
    assign pixelbitoff = clkcnt >> 1;
 
@@ -33,21 +35,23 @@ module matrixdrv (
              latch <= 0;
              outputen <= 0;
              address <= 0;
+             bitcnt <= 0;
           end // if (!rst)
 
-        if (clkcnt < 10)
+        if (clkcnt < 128)
           begin
              latch <= 0;
              outputen <= 0;
+             bitcnt <= bitcnt + 1;
 
              matclk <= clkcnt[0];
              if (!matclk)
                begin
                   if (pixelbitoff >= 0)
                     begin
-                       r <= 3;
-                       g <= 0;
-                       b <= 0;
+                       r <= pixelbitoff;
+                       g <= pixelbitoff >> 2;
+                       b <= pixelbitoff >> 4;
                     end
                   else
                     begin
@@ -76,12 +80,12 @@ module matrixdrv (
                end
           end // else: !if(clkcnt < 10)
 
-        if (clkcnt == 5'b01100)
+        if (clkcnt == 129)
           begin
              address <= address + 1;
           end
 
-        if (clkcnt <= 12)
+        if (clkcnt <= 130)
           begin
              clkcnt <= clkcnt + 1;
           end

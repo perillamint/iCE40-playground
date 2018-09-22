@@ -14,8 +14,14 @@ module top (
             output mat_clk,
             output mat_lat,
             output mat_oe,
-            output LED7,
-            output LED6
+            output LED0,
+            output LED1,
+            output LED2,
+            output LED3,
+            output LED4,
+            output LED5,
+            output LED6,
+            output LED7
 );
    reg             clkline;
    reg [3:0]       clkcnt;
@@ -29,7 +35,7 @@ module top (
    always @ (posedge clk)
      begin
         clkcnt <= clkcnt + 1;
-        if (clkcnt == 4'b1100)
+        if (clkcnt == 4'b0111)
           begin
              clkline <= ~clkline;
              clkcnt <= 0;
@@ -43,6 +49,8 @@ module top (
    assign {mat_b0, mat_b1} = mat_b;
    assign {mat_row0, mat_row1, mat_row2, mat_row3} = mat_row;
 
+   assign {LED0, LED1, LED2, LED3} = mat_row;
    assign LED7 = mat_clk;
    assign LED6 = clkline;
+   assign LED5 = mat_lat;
 endmodule

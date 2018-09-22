@@ -1,17 +1,17 @@
-set_io clk 21 #master clk
-set_io rst 112
-set_io mat_r0 113
-set_io mat_g0 114
-set_io mat_b0 115
-set_io mat_r1 116
-set_io mat_g1 117
-set_io mat_b1 118
-set_io mat_row0 62
-set_io mat_row1 61
-set_io mat_row2 60
-set_io mat_row3 56
-set_io mat_clk 48
-set_io mat_lat 47
-set_io mat_oe 45
-set_io LED7 99
-set_io LED6 98
+set_io clk J3 #master clk
+set_io rst K16
+set_io mat_r0 B16
+set_io mat_g0 C16
+set_io mat_b0 D14
+set_io mat_r1 D16
+set_io mat_g1 D15
+set_io mat_b1 E16
+set_io mat_row0 E14
+set_io mat_row1 F16
+set_io mat_row2 F15
+set_io mat_row3 G16
+set_io mat_clk H14
+set_io mat_lat J15
+set_io mat_oe F14
+set_io LED6 B3
+set_io LED7 C3
