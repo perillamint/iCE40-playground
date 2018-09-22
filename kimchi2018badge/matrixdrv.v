@@ -80,7 +80,7 @@ module matrixdrv (
                end
           end // else: !if(clkcnt < 10)
 
-        if (clkcnt == 129)
+        if (clkcnt == 130)
           begin
              address <= address + 1;
           end
