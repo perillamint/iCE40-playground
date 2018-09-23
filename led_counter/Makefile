@@ -32,6 +32,12 @@ bitstream: $(BINS)
 
 simulate: $(VCDS)
 
+flash: $(PROJ).bin
+	iceprog $<
+
+load: $(PROJ).bin
+	iceprog -S $<
+
 $(BLIFS): %.blif: %.v $(MODSRCS)
 	yosys '$(SYNTHFLAGS) -blif $@' $^
 
@@ -45,7 +51,7 @@ $(RPTS): %.rpt: %.asc
 	icetime -d $(DEVICE) -mtr $@ $<
 
 $(VVPS): %.vvp: %.v $(MODSRCS)
-	$(SIMCOMPILER) $(SIMCOMPFLAGS) $^ -o %@
+	$(SIMCOMPILER) $(SIMCOMPFLAGS) $^ -o $@
 
 $(VCDS): %_wave.vcd: %_tb.vvp
 	$(SIMULATOR) $(SIMFLAGS) $<

@@ -1,4 +1,5 @@
 set_io clk J3
+set_io rst C16
 set_io LED0 B5
 set_io LED1 B4
 set_io LED2 A2
