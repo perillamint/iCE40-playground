@@ -16,6 +16,14 @@ set_io led[12] F14
 set_io led[13] J15
 set_io led[14] H14
 set_io led[15] H16
+set_io led[16] B5
+set_io led[17] B4
+set_io led[18] A2
+set_io led[19] A1
+set_io led[20] C5
+set_io led[21] C4
+set_io led[22] B3
+set_io led[23] C3
 set_io switch[0] N2
 set_io switch[1] N3
 set_io switch[2] P2

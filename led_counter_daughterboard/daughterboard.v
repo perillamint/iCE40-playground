@@ -2,7 +2,7 @@ module top (
             input         clk,
             input         rst,
             input [15:0]  switch,
-            output [15:0] led,
+            output [23:0] led,
             output        A,
             output        B,
             output        C,
@@ -68,6 +68,8 @@ module top (
    assign led[7:4] = bcdcnt[1] & switch[7:4];
    assign led[11:8] = bcdcnt[2] & switch[11:8];
    assign led[15:12] = bcdcnt[3] & switch[15:12];
+   assign led[19:16] = bcdcnt[4];
+   assign led[23:20] = bcdcnt[5];
    assign fnd_row = fnd_rowsel;
    assign {A, B, C, D, E, F, G, DP} = sevenseg;
 endmodule
