@@ -11,7 +11,11 @@ module top (
             output        F,
             output        G,
             output        DP,
-            output [7:0]  fnd_row
+            output [7:0]  fnd_row,
+            output        lcd_rs,
+            output        lcd_rw,
+            output        lcd_clk,
+            output [7:0]  lcd_data,
             );
 
    localparam CLKDIV = 19;
@@ -26,9 +30,25 @@ module top (
    reg [7:0]      fnd_rowsel;
    wire [7:0]     sevenseg;
 
+   reg [15:0]     lcdclkdiv;
+   reg            clk_1mhz;
+
    always@(posedge clk)
      begin
         clkdiv <= clkdiv + 1;
+     end
+
+   always@(posedge clk)
+     begin
+        if (lcdclkdiv > 16'd12)
+          begin
+             clk_1mhz <= ~clk_1mhz;
+             lcdclkdiv <= 0;
+          end
+        else
+          begin
+             lcdclkdiv <= lcdclkdiv + 1;
+          end
      end
 
    always@(posedge clkdiv[FNDCLKDIV])
@@ -63,6 +83,12 @@ module top (
    counter counter7 (cntcarry[6], rst, bcdcnt[6], cntcarry[7]);
    counter counter8 (cntcarry[7], rst, bcdcnt[7]);
    bcdto7seg bcdconv1 (bcddigit, sevenseg, swbuf[0]);
+   hd44780 hd44780_drv (.clk(clk_1mhz),
+                        .rst_n(rst),
+                        .lcd_rs(lcd_rs),
+                        .lcd_rw(lcd_rw),
+                        .lcd_clk(lcd_clk),
+                        .lcd_data(lcd_data));
 
    //assign led = swbuf;
    assign led[3:0] = bcdcnt[0] & switch[3:0];

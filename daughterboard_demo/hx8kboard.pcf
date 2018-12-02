@@ -56,3 +56,14 @@ set_io fnd_row[4] G1
 set_io fnd_row[5] E2
 set_io fnd_row[6] F1
 set_io fnd_row[7] D1
+set_io lcd_rs T13
+set_io lcd_rw T15
+set_io lcd_clk T14
+set_io lcd_data[0] N12
+set_io lcd_data[1] P13
+set_io lcd_data[2] N10
+set_io lcd_data[3] M11
+set_io lcd_data[4] T11
+set_io lcd_data[5] P10
+set_io lcd_data[6] T10
+set_io lcd_data[7] R10
