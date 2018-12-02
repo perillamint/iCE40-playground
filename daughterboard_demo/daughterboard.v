@@ -15,7 +15,7 @@ module top (
             );
 
    localparam CLKDIV = 19;
-   localparam FNDCLKDIV = 10;
+   localparam FNDCLKDIV = 12;
 
    reg [CLKDIV:0] clkdiv;
    reg [2:0]      bcdoff;
@@ -34,7 +34,8 @@ module top (
    always@(posedge clkdiv[FNDCLKDIV])
      begin
         bcdoff <= bcdoff + 1;
-        bcddigit <= bcdcnt[bcdoff + 1];
+        //bcddigit <= bcdcnt[bcdoff + 1];
+        bcddigit <= bcdcnt[1];
      end
 
    always @ (bcdoff)
