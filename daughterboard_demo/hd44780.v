@@ -207,7 +207,7 @@ module hd44780(
                     if (count > 16'd160)
                       begin
                          count <= 0;
-                         state <= 8'h07; // Ad Infinum
+                         state <= 8'h07; // Ad Infinitum
                       end
                     else
                       begin
